@@ -5,7 +5,11 @@ ABC123 Widget_B 999.99
 ABC123 Widget_C 1200
 ABC123 Widget_D 99.99
 ABC123 Widget_E 15
-DEF456 Gizmo_Y 15
+DEF456 Gizmo_Y 150
+DEF456 Gizmo_B 11.3
+DEF456 Gizmo_A 1.2
+DEF456 Gizmo_C 15.23
+DEF456 Gizmo_D 15.2352
 GHI789 Thingamajig_Z 8
 JKL012 Doodad_A 13
 MNO345 Whatchamacallit_B 5

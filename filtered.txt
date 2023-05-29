@@ -1,6 +1,7 @@
-code:ABC123 name:Widget_X price:9.990000
-code:ABC123 name:Widget_A price:12.000000
-code:ABC123 name:Widget_B price:999.990000
-code:ABC123 name:Widget_C price:1200.000000
-code:ABC123 name:Widget_D price:99.990000
-code:ABC123 name:Widget_E price:15.000000
+The list is filtered according to code:DEF456
+code:DEF456 name:Gizmo_Y price:150
+code:DEF456 name:Gizmo_B price:11.3
+code:DEF456 name:Gizmo_A price:1.2
+code:DEF456 name:Gizmo_C price:15.23
+code:DEF456 name:Gizmo_D price:15.2352
+Total cost of products:192.9652

@@ -4,7 +4,7 @@
 using namespace std;
 
 bool func(object data) {
-    return data.get("code") == "ABC123";
+    return data.get("code") == "DEF456";
 }
 
 datatype reduceCallBack(object data, datatype b) {
@@ -21,9 +21,13 @@ int main() {
     objectVector filtered = products.filter(func);
     print(filtered);
     datatype c;
-    c = 0;
+    c = 0;  
     datatype sum = filtered.reduce(reduceCallBack,c);
+    string text = "Total cost of products:" + toString(sum);
+    cout<<endl; 
     print(sum);
-    writeFile("./sum.txt", sum);
-    writeFile("./filtered.txt", filtered);
+    writeFile("./filtered.txt", "w", "The list is filtered according to code:DEF456");
+    writeFile("./filtered.txt", "a",filtered);
+    writeFile("./filtered.txt", "a", text);
+
 }

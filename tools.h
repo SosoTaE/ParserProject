@@ -14,7 +14,7 @@ class datatype {
         string stringValue;
         double number;
     friend void print(datatype data);
-    friend string tostring(datatype data);
+    friend string toString(datatype data);
 
     datatype (): number(0), stringValue(""), type("undefined") {}
 
@@ -168,6 +168,26 @@ class datatype {
 
 };
 
+string removeZeroes(string str) {
+    size_t dot = str.find(".");
+    if (dot != string::npos) {
+        size_t last = str.size() - 1;
+        while (str[last] == '0') { 
+            last--;
+
+
+            if (str[last] == '.') {
+                last--;
+                break;
+            }
+        }
+
+        return str.substr(0,last + 1);
+    }
+
+    return str; 
+}
+
 void print(datatype data) {
     if (data.type == "number") {
         cout<<data.number;
@@ -181,13 +201,15 @@ void print(datatype data) {
     
 }
 
-string toString(datatype data) {
+string  toString(datatype data) {
     if (data.type == "number") {
-        return to_string(data.number);
+        return removeZeroes(to_string(data.number));
     }
-    else {
+    else if (data.type == "string") {
         return data.stringValue;
     }
+
+    return "undefined";
 }
 
 class object {
@@ -307,23 +329,12 @@ class object {
 string toString(object data) {
     string str = "";
     for (int i = 0;i < data.length - 1;i++) {
-        if (data.array[i].type == "number") {
-            str += data.array[i].key + ":" + to_string(data.array[i].number) + " ";
-        }
-        else {
-            str += data.array[i].key + ":" + data.array[i].stringValue + " ";
-        }
+        str += data.array[i].key + ":" + toString(data.array[i]) + " ";
     }
 
-    if (data.array[data.length - 1].type == "number") {
-        str += data.array[data.length - 1].key + ":" + to_string(data.array[data.length - 1].number);
-    }
-    else {
-        str += data.array[data.length - 1].key + ":" + data.array[data.length - 1].stringValue;
-    }
+    str += data.array[data.length - 1].key + ":" + toString(data.array[data.length - 1]);
 
     return str;
-
 }
 
 void print(object obj) {
@@ -455,13 +466,19 @@ class objectVector: public products {
 
         friend void print(objectVector vec);
 
-        friend void writeFile(string url, objectVector vec);
+        friend void writeFile(string url, string operation,objectVector vec);
 
         friend void WriteObjectVectorInFile(objectVector data);
 };
 
-void writeFile(string url, objectVector vec) {
-    ofstream fout(url);
+void writeFile(string url, string operation,objectVector vec) {
+    ofstream fout;
+    if (operation == "w") {
+        fout.open(url);
+    }
+    else if (operation == "a") {
+        fout.open(url,std::ios_base::app);
+    }
     for (int i = 0;i < vec.length;i++) {
         string str = toString(vec.array[i]);
         fout<<str;
@@ -469,8 +486,14 @@ void writeFile(string url, objectVector vec) {
     }         
 }
 
-void writeFile(string url, datatype data) {
-    ofstream fout(url);
+void writeFile(string url, string operation,datatype data) {
+    ofstream fout;
+    if (operation == "w") {
+        fout.open(url);
+    }
+    else if (operation == "a") {
+        fout.open(url,std::ios_base::app);
+    }
     if (data.type == "number") {
         fout<<data.number<<endl;
     } else if (data.type == "string") {
@@ -478,6 +501,18 @@ void writeFile(string url, datatype data) {
     } else {
         fout<<"undefined"<<endl;
     }  
+
+}
+
+void writeFile(string url, string operation,string data) {
+    ofstream fout;
+    if (operation == "w") {
+        fout.open(url);
+    }
+    else if (operation == "a") {
+        fout.open(url,std::ios_base::app);
+    }
+   fout<<data<<endl;
 
 }
 
